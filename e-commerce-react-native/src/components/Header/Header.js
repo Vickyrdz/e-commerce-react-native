@@ -1,9 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { colors } from '../../global/colors'
 
 const Header = ({ title = "Valor por defecto" }) => {
   return (
     <View style={styles.container}>
+      {/* <Pressable>
+        <Text>Back</Text>
+      </Pressable> */}
       <Text style={styles.text}>{title}</Text>
     </View>
   )
@@ -17,9 +21,13 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 70,
         justifyContent: "center",
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: 'row'
     },
     text: {
-        color: 'black'
+        color: colors.strongGray,
+        fontFamily: 'PoppinSemiRegular',
+        fontWeight: '600',
+        marginTop: 30
     }
 })

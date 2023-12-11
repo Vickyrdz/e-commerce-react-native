@@ -1,10 +1,17 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text  } from 'react-native'
+import { Pressable, StyleSheet, Text  } from 'react-native';
+import { colors } from '../../global/colors'
 
-const CategoryItem = ({item}) => {
+
+const CategoryItem = ({item, setCategorySelected}) => {
+
+  const mayus = (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+  
   return (
-    <Pressable style={styles.container}>
-        <Text style={styles.text}>{item}</Text>
+    <Pressable style={styles.container} onPress={()=> setCategorySelected(item)}>
+        <Text style={styles.text}>{mayus(item)}</Text>
     </Pressable>
   )
 }
@@ -13,12 +20,12 @@ export default CategoryItem
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
-        width: '80%',
+        backgroundColor: colors.mediumBlue,
+        width: '60%',
         margin: 10,
         padding: 10,
-        marginHorizontal: "10%",
         textAlign: 'center',
+        borderRadius: 15,
         // SOMBRA ANDROID,
         elevation: 10,
         // SOMBRA IOS
@@ -29,10 +36,13 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 1,
         shadowRadius: 1,
-
+        alignSelf: 'center'
 
     },
     text: {
-
+      color: "white",
+      fontFamily: 'PoppinSemiRegular',
+      textAlign: 'center'
+      
     },
 })
