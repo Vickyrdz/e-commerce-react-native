@@ -3,14 +3,16 @@ import { Pressable, StyleSheet, Text  } from 'react-native';
 import { colors } from '../../global/colors'
 
 
-const CategoryItem = ({item, setCategorySelected}) => {
+const CategoryItem = ({item, navigation, route }) => {
 
   const mayus = (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
   
   return (
-    <Pressable style={styles.container} onPress={()=> setCategorySelected(item)}>
+    <Pressable 
+      style={styles.container} 
+      onPress={()=> navigation.navigate("Category", {item: item})}>
         <Text style={styles.text}>{mayus(item)}</Text>
     </Pressable>
   )
@@ -27,14 +29,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderRadius: 15,
         // SOMBRA ANDROID,
-        elevation: 10,
-        // SOMBRA IOS
-        shadowColor: 'black',
-        shadowOffset: {
-          width: 5,
-          height: 3
-        },
-        shadowOpacity: 1,
         shadowRadius: 1,
         alignSelf: 'center'
 

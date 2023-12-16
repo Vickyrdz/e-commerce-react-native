@@ -4,11 +4,10 @@ import Header from '../components/Header/Header';
 import Categories from '../components/Categories/Categories';
 import ItemListCategories from './ItemListCategories';
 
-const Home = ({setCategorySelected}) => {
+const Home = ({navigation, route}) => {
   return (
     <>
-        <Header title='Categories'/> 
-        <Categories setCategorySelected={setCategorySelected}/>
+        <Categories navigation={navigation} route={route}/>
     </>
   )
 }

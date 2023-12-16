@@ -2,12 +2,9 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../global/colors'
 
-const Header = ({ title = "Valor por defecto" }) => {
+const Header = ({title}) => {
   return (
     <View style={styles.container}>
-      {/* <Pressable>
-        <Text>Back</Text>
-      </Pressable> */}
       <Text style={styles.text}>{title}</Text>
     </View>
   )

@@ -51,7 +51,9 @@ export default Search
 
 const styles = StyleSheet.create({
 container: {
-  width: "80%"
+  width: "80%",
+  alignSelf: 'center',
+  marginTop: 10
 },
 container2: {
     flexDirection: 'row',
@@ -72,7 +74,8 @@ input:  {
 icons: {
   flexDirection: 'row',
   width: "20%",
-  justifyContent: 'center'
+  justifyContent: 'center',
+  paddingLeft: 15
 },
 error: {
   marginTop: 5,
