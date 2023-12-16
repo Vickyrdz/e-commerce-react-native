@@ -23,20 +23,22 @@ const Search = ({setKeyword}) => {
   }
 
   return (
-    <View>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.container2}>
         <TextInput
           style={styles.input}
           placeholder="Search..."
           value={input}
           onChangeText={(t) => setInput(t)}
         />
-        <Pressable onPress={search}>
-          <EvilIcons name="search" color="black" size={25} />
-        </Pressable>
-        <Pressable onPress={removeInputAndError}>
-          <EvilIcons name="close" color="black" size={25} />
-        </Pressable>
+        <View style={styles.icons}>
+          <Pressable onPress={search}>
+            <EvilIcons name="search" color="black" size={25} />
+          </Pressable>
+          <Pressable onPress={removeInputAndError}>
+            <EvilIcons name="close" color="black" size={25} />
+          </Pressable>
+        </View>
       </View>
 
       {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -49,11 +51,14 @@ export default Search
 
 const styles = StyleSheet.create({
 container: {
+  width: "80%"
+},
+container2: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    width: '90%',
-    paddingTop: 10
+    width: '100%',
+    paddingTop: 10,
+    
 },
 input:  {
   color: "gray",
@@ -63,6 +68,11 @@ input:  {
   width: '80%',
   borderColor: 'white',
   borderRadius: 10
+},
+icons: {
+  flexDirection: 'row',
+  width: "20%",
+  justifyContent: 'center'
 },
 error: {
   marginTop: 5,

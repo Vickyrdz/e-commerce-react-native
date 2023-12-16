@@ -1,19 +1,22 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, useWindowDimensions, Pressable } from 'react-native'
 import React from 'react'
 import { colors } from '../../global/colors'
 
-const ProductItem = ({item}) => {
+const ProductItem = ({item, setProductDetailId}) => {
+
+  const {width, height} = useWindowDimensions();
+
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={()=> setProductDetailId(item.id)}>
       <View style={styles.imageContainer}>
         <Image 
           style={styles.image}
           resizeMode='cover'
           source={{ uri: item.thumbnail}}/>
       </View>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-    </View>
+      <Text style={width > 400 ? styles.titleMax : styles.title}>{item.title}</Text>
+      <Text style={width > 400 ? styles.descriptionMax : styles.description}>{item.description}</Text>
+    </Pressable>
   )
 }
 
@@ -47,6 +50,8 @@ const styles = StyleSheet.create({
      image: {
         width: 200,
         height: 190,
+        minHeight: 100,
+        minWidth: 100,
         borderRadius: 15
      },
      title: {
@@ -54,10 +59,23 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'PoppinSemiRegular'
      },
+     titleMax: {
+      color: colors.strongGray,
+      textAlign: 'center',
+      fontFamily: 'PoppinSemiRegular',
+      fontSize: 16
+   },
      description: {
         fontFamily: 'PoppinMedium',
         color: colors.strongGray,
         textAlign: 'center',
-
-     }
+        marginBottom: 20.
+     },
+     descriptionMax: {
+      fontFamily: 'PoppinMedium',
+      color: colors.strongGray,
+      textAlign: 'center',
+      marginBottom: 20,
+      fontSize: 16
+   }
 })
