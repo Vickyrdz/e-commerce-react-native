@@ -1,9 +1,13 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import CategoryItem from '../CategoryItem/CategoryItem';
-import categories from '../../data/categories.json';
+import { useSelector } from 'react-redux';
+
 
 const Categories = ({navigation, route}) => {
+
+  const categories = useSelector((state) => state.shop.value.categories);
+
   return (
     <FlatList
       style={styles.container}

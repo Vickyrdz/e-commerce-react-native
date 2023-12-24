@@ -1,23 +1,16 @@
-import { Image, Pressable, StyleSheet, Text, View, useWindowDimensions, } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Header from '../components/Header/Header';
-import allProducts from '../data/products.json';
-import { colors } from '../global/colors'
+import { Image, Pressable, StyleSheet, Text, View, useWindowDimensions, } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { colors } from '../global/colors';
+import { useSelector } from 'react-redux'; 
 
 
+ 
 const ItemDetail = ({route}) => {
 
-  const {id} = route.params;
-  const [product, setProduct] = useState({});
-
-  useEffect(()=>{
-    const productFinded = allProducts.find(product => product.id === id);
-    setProduct(productFinded);
-  }, [id]);
-
+  const product = useSelector((state)=> state.shop.value.productSelected)
   const {width, height} = useWindowDimensions();
 
-  return (
+  return ( 
     <View style={styles.container}>
       <View style={styles.card}>
         <View style={styles.imageContainer}>

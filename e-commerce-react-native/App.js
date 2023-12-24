@@ -1,8 +1,10 @@
 import { StyleSheet, StatusBar} from 'react-native';
 import { colors } from './src/global/colors';
 import {useFonts} from 'expo-font';
-import Navigation from './src/navigation/Navigation';
 import { fonts } from './src/global/fonts';
+import TabNavigation from './src/navigation/TabNavigation';
+import { store } from './src/app/store';
+import { Provider } from 'react-redux';
 
 
 export default function App() {
@@ -13,10 +15,11 @@ export default function App() {
 
   return (
     <>
-      <StatusBar barStyle={'light-content'}/>
-      <Navigation/>
+      <StatusBar barStyle={"light-content"} />
+      <Provider store={store}>
+        <TabNavigation />
+      </Provider>
     </>
-    
   );
 }
 
