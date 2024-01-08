@@ -2,26 +2,30 @@ import { StyleSheet, FlatList, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Search from '../components/Search/Search';
 import ProductItem from '../components/ProductItem/ProductItem';
-import { useSelector } from 'react-redux'; 
+import { useGetProductsQuery } from '../app/Services/shopService';
 
 const ItemListCategories = ({navigation, route}) => {
-
-  const productsFilteredByCategory = useSelector(state => state.shop.value.productsFilteredByCategory); 
+  const { category } = route.params; 
+  const { data } = useGetProductsQuery(category); 
   const [keyword, setKeyword] = useState("");
-  const [products, setProducts] = useState(productsFilteredByCategory)
+  const [products, setProducts] = useState(data);
 
   useEffect(()=>{
-    
-      const productsFiltered = productsFilteredByCategory.filter(product => product.title.includes(keyword));
-      setProducts(productsFiltered); 
-    
-  }, [keyword, productsFilteredByCategory])
+
+    if(!isLoading) {
+      const dataArray = Object.values(data);
+      const productsFiltered = dataArray.filter(product => product.title.includes(keyword));
+      setProducts(productsFiltered);
+    }
+
+        
+  }, [keyword, data])
 
   const mayus = (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
   
-
+ 
   return (
     <View style={styles.mainView}>
       <Search setKeyword={setKeyword}/>

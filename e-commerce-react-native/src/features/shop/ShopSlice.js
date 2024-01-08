@@ -28,4 +28,4 @@ export const ShopSlice = createSlice({
 
 export const {setProductsFilteredByCategory, setProductSelected} = ShopSlice.actions; 
 
-export default ShopSlice.reducer; 
+export default ShopSlice.reducer;  

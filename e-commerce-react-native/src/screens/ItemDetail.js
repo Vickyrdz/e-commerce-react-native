@@ -1,12 +1,13 @@
 import { Image, Pressable, StyleSheet, Text, View, useWindowDimensions, } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { colors } from '../global/colors';
-import { useSelector } from 'react-redux'; 
-
+import { useSelector, useDispatch } from 'react-redux'; 
+import { addItem } from '../features/Cart/CartSlice';
 
  
 const ItemDetail = ({route}) => {
 
+  const dispatch = useDispatch(); 
   const product = useSelector((state)=> state.shop.value.productSelected)
   const {width, height} = useWindowDimensions();
 
@@ -20,14 +21,14 @@ const ItemDetail = ({route}) => {
           <Text style={width > 400 ? styles.titleMax : styles.title}>{product.title}</Text>
           <Text style={width > 400 ? styles.descriptionMax : styles.description}>{product.description}</Text>
           <Text style={styles.price}>-${product.price}-</Text>
-          <Pressable style={styles.button}>
+          <Pressable style={styles.button} onPress={()=> dispatch(addItem(product))}>
             <Text style={styles.buyNow}>Buy Now</Text>
           </Pressable>
-        </View>
+        </View> 
         
       </View>
     </View>
-  )
+  ) 
 }
 
 export default ItemDetail
