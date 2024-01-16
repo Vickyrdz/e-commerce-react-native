@@ -5,6 +5,7 @@ import { fonts } from './src/global/fonts';
 import TabNavigation from './src/navigation/TabNavigation';
 import { store } from './src/app/store';
 import { Provider } from 'react-redux';
+import MainNavigator from './src/navigation/MainNavigator';
 
 
 export default function App() {
@@ -17,7 +18,7 @@ export default function App() {
     <>
       <StatusBar barStyle={"light-content"} />
       <Provider store={store}>
-        <TabNavigation />
+        <MainNavigator />
       </Provider>
     </>
   );

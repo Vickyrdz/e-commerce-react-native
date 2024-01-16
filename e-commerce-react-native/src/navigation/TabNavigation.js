@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import ShopStack from './ShopStack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CartStack from './CartStack';
@@ -15,7 +14,6 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   return (
-    <NavigationContainer>
       <Tab.Navigator 
       screenOptions={{
         headerShown: false,
@@ -41,7 +39,6 @@ const TabNavigation = () => {
             tabBarIcon: ({focused}) => <Octicons name="list-unordered"  size={24} color={ focused ? colors.mediumBlue : colors.strongGray} />
           }}/> 
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 

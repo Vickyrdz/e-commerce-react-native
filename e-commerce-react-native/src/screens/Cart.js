@@ -1,40 +1,30 @@
 import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react';
-import allCart from '../data/cart.json';
 import CartItem from '../components/CartItem/CartItem';
 import { colors } from '../global/colors';
+import { useSelector } from 'react-redux'; 
+import { usePostOrdersMutation } from '../app/Services/shopService';
+
 
 const Cart = () => {
 
-  const [cart, setCart] = useState([]); 
-  const [total, setTotal] = useState(0); 
-
-
-
-  useEffect(()=> {
-    setCart(allCart)
-  }, []);
-
-  useEffect(()=> {
-    const total = cart.reduce((acc, product)=> acc + (product.price * product.quantity), 0); 
-    setTotal(total);
-    setCart(allCart)
-  }, [cart]);
+  const cart = useSelector(state => state.cart.value);
+  const [triggerPostOrder] = usePostOrdersMutation; 
 
   return (
     <View style={styles.mainView}>
       <FlatList
-        data={cart}
+        data={cart.item}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <CartItem item={item} />}
       />
       <View style={styles.container}>
         <View style={styles.containerTotal}>
           <Text style={styles.total}>Total</Text>
-          <Text style={styles.price}>${total}</Text>
+          <Text style={styles.price}>${cart.total}</Text>
         </View>
         <Pressable style={styles.confirmContainer}>
-          <Text style={styles.confirmText}>Confirm</Text>
+          <Text onPress={()=> triggerPostOrder(cart)} style={styles.confirmText}>Confirm</Text>
         </Pressable>
       </View>
     </View>

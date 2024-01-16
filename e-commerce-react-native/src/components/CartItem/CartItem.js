@@ -20,6 +20,7 @@ const CartItem = ({item}) => {
       </View>
       <View style={styles.texts}>
         <Text style={styles.textTitle}>{mayus(item.title)}</Text>
+        <Text style={styles.text}>Cantidad: {item.quantity}</Text>
         <Text style={styles.text}>${item.price}</Text>
       </View>
       <Ionicons name="close" size={24} color={colors.mediumGray} />

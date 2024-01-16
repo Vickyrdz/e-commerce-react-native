@@ -5,20 +5,17 @@ import ProductItem from '../components/ProductItem/ProductItem';
 import { useGetProductsQuery } from '../app/Services/shopService';
 
 const ItemListCategories = ({navigation, route}) => {
-  const { category } = route.params; 
-  const { data } = useGetProductsQuery(category); 
+  const { item } = route.params;
+  const { data, isLoading } = useGetProductsQuery(item); 
   const [keyword, setKeyword] = useState("");
   const [products, setProducts] = useState(data);
 
   useEffect(()=>{
-
     if(!isLoading) {
       const dataArray = Object.values(data);
       const productsFiltered = dataArray.filter(product => product.title.includes(keyword));
       setProducts(productsFiltered);
     }
-
-        
   }, [keyword, data])
 
   const mayus = (text) => {

@@ -6,4 +6,5 @@ export const colors = {
     mediumBlue: "#4169e1",
     strongBlue: "#3a59b7",
     green: "#64e564",
+    lilac: "#878adb"
 }

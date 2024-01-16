@@ -6,16 +6,23 @@ export const shopApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: url_base }),
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: (category) => `products.json?orderBy="category"&equalTo=${category}`,
+      query: (category) => `products.json?orderBy="category"&equalTo="${category}"`,
     }),
     getProduct: builder.query({
         query: () => `products${id}.json`,
     }),
     getCategories: builder.query({
         query: () => `categories.json`
+    }),
+    postOrders: builder.mutation({
+        query: (order) => ({
+          url: 'orders.json',
+          method: 'POST',
+          body: order
+        })
     })
   }),
 })
 
 
-export const { useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery } = shopApi 
+export const { useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery, usePostOrdersMutation } = shopApi 
