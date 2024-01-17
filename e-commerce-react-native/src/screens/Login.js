@@ -95,14 +95,12 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: 'PoppinBold',
         color: colors.strongGray,
-        fontWeight: 600,
         fontSize: 20
     },
     title2:{
         fontFamily: 'PoppinBold',
         marginBottom: 30,
         color: colors.lilac,
-        fontWeight: 600,
         fontSize: 20
     },
     notHaveText: {

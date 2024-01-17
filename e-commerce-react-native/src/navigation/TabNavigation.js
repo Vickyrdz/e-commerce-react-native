@@ -7,7 +7,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '../global/colors';
 import OrderStack from './OrderStack';
 import { Octicons } from '@expo/vector-icons';
-
+import ProfileStack from './ProfileStack';
+import { FontAwesome5 } from '@expo/vector-icons';
  
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +38,12 @@ const TabNavigation = () => {
           component={OrderStack} 
           options={{
             tabBarIcon: ({focused}) => <Octicons name="list-unordered"  size={24} color={ focused ? colors.mediumBlue : colors.strongGray} />
+          }}/> 
+           <Tab.Screen 
+          name="ProfileStack" 
+          component={ProfileStack} 
+          options={{
+            tabBarIcon: ({focused}) => <FontAwesome5 name="user-alt" size={24} color={ focused ? colors.mediumBlue : colors.strongGray} />
           }}/> 
       </Tab.Navigator>
   );

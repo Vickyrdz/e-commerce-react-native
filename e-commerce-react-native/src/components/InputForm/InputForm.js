@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     labels: {
         width: "50%",
-        placeSelf: "center",
+        alignSelf: "center",
         textAlignLast: "start",
         fontFamily: 'PoppinSemiRegular',
         color: colors.strongGray

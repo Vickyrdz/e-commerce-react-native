@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     text: {
         color: colors.strongGray,
         fontFamily: 'PoppinSemiRegular',
-        fontWeight: '600',
         marginTop: 30
     }
 })
