@@ -10,9 +10,10 @@ const Categories = ({navigation, route}) => {
 
   return (
     <FlatList
-      style={styles.container}
+      contentContainerStyle={styles.container}
       data={categories}
       keyExtractor={item => item}
+      numColumns={3}
       renderItem={({item}) => <CategoryItem item={item} navigation={navigation} route={route}/>}
     />
   )
@@ -23,6 +24,10 @@ export default Categories
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginTop: 30
+    marginTop: 30,
+    alignSelf: 'center',
+    alignItems: 'center'
   }
+
+
 })

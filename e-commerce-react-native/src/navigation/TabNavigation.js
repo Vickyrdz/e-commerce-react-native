@@ -25,25 +25,25 @@ const TabNavigation = () => {
           name="ShopStack" 
           component={ShopStack} 
           options={{
-            tabBarIcon: ({focused}) => <AntDesign name="appstore1" size={24} title='lola' color={ focused ? colors.mediumBlue : colors.strongGray} />
+            tabBarIcon: ({focused}) => <AntDesign name="appstore1" size={24} title='lola' color={ focused ? colors.strongLilac : colors.strongGray} />
           }}/>
         <Tab.Screen 
           name="CartStack" 
           component={CartStack} 
           options={{
-            tabBarIcon: ({focused}) => <MaterialIcons name="shopping-cart" size={24} color={ focused ? colors.mediumBlue : colors.strongGray} />
+            tabBarIcon: ({focused}) => <MaterialIcons name="shopping-cart" size={24} color={ focused ? colors.strongLilac : colors.strongGray} />
           }}/>
          <Tab.Screen 
           name="OrderStack" 
           component={OrderStack} 
           options={{
-            tabBarIcon: ({focused}) => <Octicons name="list-unordered"  size={24} color={ focused ? colors.mediumBlue : colors.strongGray} />
+            tabBarIcon: ({focused}) => <Octicons name="list-unordered"  size={24} color={ focused ? colors.strongLilac : colors.strongGray} />
           }}/> 
            <Tab.Screen 
           name="ProfileStack" 
           component={ProfileStack} 
           options={{
-            tabBarIcon: ({focused}) => <FontAwesome5 name="user-alt" size={24} color={ focused ? colors.mediumBlue : colors.strongGray} />
+            tabBarIcon: ({focused}) => <FontAwesome5 name="user-alt" size={24} color={ focused ? colors.strongLilac : colors.strongGray} />
           }}/> 
       </Tab.Navigator>
   );

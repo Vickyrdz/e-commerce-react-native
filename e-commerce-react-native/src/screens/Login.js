@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import InputForm from '../components/InputForm/InputForm'
 import SubmitButton from '../components/SubmitButton/SubmitButton';
@@ -7,29 +7,36 @@ import { useLoginMutation } from '../app/Services/auth';
 import { useDispatch } from 'react-redux'; 
 import { setUser } from '../features/Auth/AuthSlice';
 import { signUpSchema } from '../Validations/SignUpSchema';
+import useLogin from '../Hooks/useLogin';
 
 
 const Login = ({navigation}) => {
 
     const dispatach = useDispatch();
-    const [email, setEmail] = useState('jdimo@gmail.com');
-    const [password, setPassword] = useState('123123');
-    const [triggerLogin, {data, isError, isSuccess, error, isLoading}] = useLoginMutation()
+    const [triggerLogin, { data, isSuccess }] = useLoginMutation();
+
+    const {
+      userLogin,
+      rulesPassword,
+      setUserLogin,
+      inputInvalidEmail,
+      allowEmailErrorMessage,
+      focusedEmailInput,
+      inputInvalidPassword,
+      allowPasswordErrorMessage,
+      focusedPasswordInput,
+    } = useLogin();
 
     useEffect(()=>{
       if(isSuccess) dispatach(setUser(data))
   }, [isSuccess]);
 
+    const email = userLogin.email; 
+    const password = userLogin.password;
 
-  const onSubmit = () => {
-    try {
-        // signUpSchema.validateSync({email, password})
-        console.log({ email, password });
-        triggerLogin({ email, password })
-    } catch (error) {
-        
+    const onSubmit = () => {
+      triggerLogin({email, password});
     }
-}
 
 
   return (
@@ -39,20 +46,42 @@ const Login = ({navigation}) => {
             <Text style={styles.title}>Log in to</Text>  
             <Text style={styles.title2}>your account</Text>
         </View>
-        <InputForm
-          label="Email"
-          value={email}
-          onChangeText={(t) => setEmail(t)}
-          isSecure={false}
-          error=""
-        />
-        <InputForm
-          label="Password"
-          value={password}
-          onChangeText={(t) => setPassword(t)}
-          isSecure={true}
-          error=""
-        />
+        <View>
+          <Text style={styles.text}>Email</Text>
+          <TextInput
+              value={userLogin.email}
+              label="Email"
+              name='email'
+              onChangeText={(text) => setUserLogin({ ...userLogin, email: text })}
+              style={styles.input}
+              onFocus={allowEmailErrorMessage}
+            />
+            {inputInvalidEmail && focusedEmailInput ? (
+              <Text style={styles.error}>Email invalid</Text>
+            ) : (
+              <Text style={styles.ghostText}>{" "}</Text>
+            )}
+        </View>
+        <View>
+          <Text style={styles.text}>Password</Text>
+          <TextInput
+              label="Password"
+              name='password'
+              value={userLogin.password}
+              onChangeText={(text) => setUserLogin({ ...userLogin, password: text })}
+              style={styles.input}
+              onFocus={allowPasswordErrorMessage}
+
+            />
+              {
+                (inputInvalidPassword && focusedPasswordInput) ? (
+                    <Text style={styles.error}>Password invalid</Text>
+                  ) : (
+                    <Text style={styles.ghostText}>{" "}</Text>
+                  )
+              }
+        </View>
+        
         <View style={styles.button}>
             <SubmitButton title="Send" onPress={onSubmit}/>
         </View>
@@ -107,15 +136,56 @@ const styles = StyleSheet.create({
         fontFamily: 'PoppinSemiRegular',
         color: colors.strongGray,
         fontSize: 12,
-        marginTop: 10
+        marginTop: 10,
+        textAlign: 'center'
     },
     signUpText: {
         fontFamily: 'PoppinSemiRegular',
         color: colors.lilac,
-        fontSize: 14
+        fontSize: 14,
+        textAlign: 'center'
+
     },
     button: {
         marginBottom: 10
-    }
+    },
+    input: {
+      width: "70%",
+      alignSelf: "center",
+      backgroundColor: colors.lightGray,
+      borderRadius: 5,
+      marginTop: 5,
+      height: 22,
+      marginBottom: 20
+  },
+  text: {
+      fontFamily: 'PoppinSemiRegular',
+      color: colors.strongGray,
+      fontSize: 12,
+      width: "70%",
+      alignSelf: "center",
+  },
+  error: {
+      color: colors.error,
+      position: 'relative',
+      bottom: 10,
+      width: "70%",
+      alignSelf: "center",
+      fontFamily: 'PoppinSemiRegular',
+      fontSize: 12
+  },
+  rules: {
+      color: colors.strongGray,
+      position: 'relative',
+      bottom: 10,
+      fontSize: 12,
+      width: "90%",
+      alignSelf: "center",
+      fontFamily: 'PoppinSemiRegular',
+      fontStyle: 'italic'
+  },
+  ghostText: {
+    height: 0
+  }
 })
   

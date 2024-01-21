@@ -4,12 +4,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     value: {
        mail: null,
-       idToken: null,
+       idToken: '2',
        localId: null,
        
     } 
 };
-
 export const authSlice = createSlice({
     name: 'auth',
     initialState,

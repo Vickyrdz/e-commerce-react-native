@@ -15,7 +15,7 @@ const ProductItem = ({item, navigation, route}) => {
       style={styles.container}
       onPress={() => {
         dispatch(setProductSelected(item.id))
-        navigation.navigate("Product", { id: item.id });
+        navigation.navigate("Detail", { id: item.id });
       }}
     >
       <View style={styles.imageContainer}>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         borderRadius: 15
      },
      title: {
-        color: colors.strongGray,
+        color: colors.lilac,
         textAlign: 'center',
         fontFamily: 'PoppinSemiRegular'
      },

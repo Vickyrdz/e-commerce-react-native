@@ -1,8 +1,11 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 import { colors } from '../../global/colors'
+import useSignUp from '../../Hooks/useSignUp';
 
-const InputForm = ({label, value, onChangeText, isSecure, error}) => {
+const InputForm = ({ label, value, onChangeText, isSecure, error }) => {
+  const { inputInvalidEmail, inputInvalidPassword } = useSignUp();
+
   return (
     <View>
       <Text style={styles.labels}>{label}</Text>
@@ -12,11 +15,16 @@ const InputForm = ({label, value, onChangeText, isSecure, error}) => {
         onChangeText={onChangeText}
         secureTextEntry={isSecure}
       />
-      { error ? <View><Text>{error}</Text></View> : null }
-
+      { inputInvalidEmail && label === 'Email' ? (
+        <Text style={{ color: 'red', fontSize: 12, marginTop: 5 }}>
+          Email invalid
+        </Text>
+      ) : null}
+      {label === 'Password'}
     </View>
-  )
-}
+  );
+};
+
 
 export default InputForm
 
@@ -34,7 +42,6 @@ const styles = StyleSheet.create({
     labels: {
         width: "50%",
         alignSelf: "center",
-        textAlignLast: "start",
         fontFamily: 'PoppinSemiRegular',
         color: colors.strongGray
     }

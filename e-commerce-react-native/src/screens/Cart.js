@@ -9,7 +9,7 @@ import { usePostOrdersMutation } from '../app/Services/shopService';
 const Cart = () => {
 
   const cart = useSelector(state => state.cart.value);
-  const [triggerPostOrder] = usePostOrdersMutation; 
+  const [triggerPostOrder] = usePostOrdersMutation(); 
 
   return (
     <View style={styles.mainView}>

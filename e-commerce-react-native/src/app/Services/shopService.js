@@ -2,44 +2,60 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { url_base} from '../../firebase/db';
 
 export const shopApi = createApi({
-  reducerPath: 'shopApi',
+  reducerPath: "shopApi",
   baseQuery: fetchBaseQuery({ baseUrl: url_base }),
-  tagTypes:["image"],
+  tagTypes: ["image", "location"],
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: (category) => `products.json?orderBy="category"&equalTo="${category}"`,
+      query: (category) =>
+        `products.json?orderBy="category"&equalTo="${category}"`,
     }),
     getProduct: builder.query({
-        query: () => `products${id}.json`,
+      query: () => `products${id}.json`,
     }),
     getCategories: builder.query({
-        query: () => `categories.json`
-    }),
+      query: () => `categories.json`,
+    }), 
     postOrders: builder.mutation({
-        query: (order) => ({
-          url: 'orders.json',
-          method: 'POST',
-          body: order
-        })
+      query: (order) => ({
+        url: "orders.json",
+        method: "POST",
+        body: order,
+      }),
     }),
     postProfileImage: builder.mutation({
-      query: ({localId, image}) => {
+      query: ({ localId, image }) => {
         const imgUrl = `profileImage/${localId}.json`;
-        console.log({ imgUrl });
-        return ({
+        return {
           url: imgUrl,
-          method: 'PUT',
-          body: { image }
-        });
+          method: "PUT",
+          body: { image },
+        };
       },
-      invalidatesTags:["image"]
-  }),
+      invalidatesTags: ["image"],
+    }),
     getProfileImage: builder.query({
       query: (localId) => `profileImage/${localId}.json`,
-      providesTags:["image"]
+      providesTags: ["image"],
     }),
-    }),
-})
+    postProfileLocation: builder.mutation({
+      query: ({localId, locationFormatted}) => {
+        const locationUrl = `profileLocation/${localId}.json`;
+        return ({
+          url: locationUrl,
+          method: 'PUT',
+          body: locationFormatted
+        });
+      },
+      invalidatesTags: ["location"],
+  }),
+  getProfileLocation: builder.query({
+    query: (localId) => `profileLocation/${localId}.json`,
+    providesTags: ["location"],
+  }),
+
+  }),
+});
 
 
 export const { 
@@ -48,5 +64,7 @@ export const {
   useGetCategoriesQuery, 
   usePostOrdersMutation, 
   usePostProfileImageMutation,
-  useGetProfileImageQuery
+  useGetProfileImageQuery,
+  usePostProfileLocationMutation,
+  useGetProfileLocationQuery
 } = shopApi 
