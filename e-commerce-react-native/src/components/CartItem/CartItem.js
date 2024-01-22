@@ -1,14 +1,22 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react';
 import { colors } from '../../global/colors';
 import { Ionicons } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
+import { removeItem } from '../../features/Cart/CartSlice';
+
+
 
 
 const mayus = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
+
+
 const CartItem = ({item}) => {
+  const dispatch = useDispatch(); 
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -20,10 +28,12 @@ const CartItem = ({item}) => {
       </View>
       <View style={styles.texts}>
         <Text style={styles.textTitle}>{mayus(item.title)}</Text>
-        <Text style={styles.text}>Cantidad: {item.quantity}</Text>
+        <Text style={styles.textQuantity}>Cantidad: {item.quantity}</Text>
         <Text style={styles.text}>${item.price}</Text>
       </View>
-      <Ionicons name="close" size={24} color={colors.mediumGray} />
+      <Pressable onPress={()=> dispatch(removeItem(item.id))}>
+        <Ionicons name="close" size={24} color={colors.mediumGray} />
+      </Pressable>
     </View>
   );
 }
@@ -55,19 +65,28 @@ const styles = StyleSheet.create({
  texts: {
   flexDirection: 'row',
   gap: 8,
-  width: "64%",
+  width: "70%",
   justifyContent: "center",
  },
  text: {
   fontFamily: 'PoppinSemiRegular',
   color: colors.strongGray,
-  fontSize: 12,
+  fontSize: 14,
+  width: "15%",
+  alignSelf: 'center'
+},
+ textQuantity: {
+  fontFamily: 'PoppinSemiRegular',
+  color: colors.strongGray,
+  fontSize: 14,
+  width: "35%",
   alignSelf: 'center'
 },
 textTitle:{
   fontFamily: 'PoppinSemiRegular',
   color: colors.strongGray,
-  fontSize: 12,
+  fontSize: 14,
+  paddingLeft: 10,
   width: "80%"
 }
 })

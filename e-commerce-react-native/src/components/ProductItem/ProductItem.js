@@ -7,6 +7,10 @@ import { setProductSelected } from '../../features/shop/ShopSlice';
 
 const ProductItem = ({item, navigation, route}) => {
 
+  const mayus = (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   const dispatch = useDispatch(); 
   const {width, height} = useWindowDimensions();
 
@@ -26,10 +30,10 @@ const ProductItem = ({item, navigation, route}) => {
         />
       </View>
       <Text style={width > 400 ? styles.titleMax : styles.title}>
-        {item.title}
+        {mayus(item.title)}
       </Text>
       <Text style={width > 400 ? styles.descriptionMax : styles.description}>
-        {item.description}
+        {mayus(item.description)}
       </Text>
     </Pressable>
   );
@@ -70,12 +74,12 @@ const styles = StyleSheet.create({
         borderRadius: 15
      },
      title: {
-        color: colors.lilac,
+        color: colors.strongGray,
         textAlign: 'center',
         fontFamily: 'PoppinSemiRegular'
      },
      titleMax: {
-      color: colors.strongGray,
+      color: colors.lilac,
       textAlign: 'center',
       fontFamily: 'PoppinSemiRegular',
       fontSize: 16

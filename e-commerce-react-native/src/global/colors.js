@@ -10,6 +10,7 @@ export const colors = {
     lightLilac: "#9a9de2",
     lilac: "#878adb",
     strongLilac: "#7376bc",
+    strongLilac2: "#6c70b2",
     error: '#ea6b6b',
     lightgreen: "#d6eddb",
     green: "#41ad47",

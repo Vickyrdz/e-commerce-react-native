@@ -1,20 +1,23 @@
 import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CartItem from '../components/CartItem/CartItem';
 import { colors } from '../global/colors';
 import { useSelector } from 'react-redux'; 
 import { usePostOrdersMutation } from '../app/Services/shopService';
 
-
 const Cart = () => {
-
   const cart = useSelector(state => state.cart.value);
-  const [triggerPostOrder] = usePostOrdersMutation(); 
+  const [triggerPostOrder] = usePostOrdersMutation();
+
+  const handleConfirmPress = () => {
+    triggerPostOrder(cart); 
+  }
+
 
   return (
     <View style={styles.mainView}>
       <FlatList
-        data={cart.item}
+        data={cart.items}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <CartItem item={item} />}
       />
@@ -23,15 +26,15 @@ const Cart = () => {
           <Text style={styles.total}>Total</Text>
           <Text style={styles.price}>${cart.total}</Text>
         </View>
-        <Pressable style={styles.confirmContainer}>
-          <Text onPress={()=> triggerPostOrder(cart)} style={styles.confirmText}>Confirm</Text>
+        <Pressable style={styles.confirmContainer} onPress={handleConfirmPress}>
+          <Text style={styles.confirmText}>Confirm</Text>
         </Pressable>
       </View>
     </View>
-  );
-}
+  );}
 
-export default Cart
+
+export default Cart;
 
 const styles = StyleSheet.create({
   mainView: {
@@ -79,4 +82,4 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "PoppinBold",
   }
-})
+});
