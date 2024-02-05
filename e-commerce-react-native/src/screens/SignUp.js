@@ -14,10 +14,6 @@ const SignUp = ({ navigation }) => {
   const dispatch = useDispatch();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
-  // const [passwordConfirmlError, setPasswordConfirmError] = useState('');
 
   const [triggerSignUp, { data, isError, isSuccess, error, isLoading }] = useSignUpMutation();
 

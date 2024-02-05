@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
       fontFamily: 'PoppinSemiRegular',
       color: colors.error,
       fontSize: 12
-    }
+    },
+
 })
 

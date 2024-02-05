@@ -29,7 +29,7 @@ const CartItem = ({item}) => {
       <View style={styles.texts}>
         <Text style={styles.textTitle}>{mayus(item.title)}</Text>
         <View style={styles.priceContainer}>
-          <Text style={styles.textQuantity}>Cantidad: {item.quantity}</Text>
+          <Text style={styles.textQuantity}>Quantity: {item.quantity}</Text>
           <Text style={styles.text}>${item.price}</Text>
         </View>
       </View>

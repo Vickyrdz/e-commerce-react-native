@@ -3,32 +3,22 @@ import React, { useState } from 'react';
 import { colors } from '../global/colors';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { addItem } from '../features/Cart/CartSlice';
-import { usePostOrdersMutation } from '../app/Services/shopService';
 
 const ItemDetail = ({ route }) => {
   const dispatch = useDispatch(); 
   const product = useSelector((state) => state.shop.value.productSelected);
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [triggerPostOrder] = usePostOrdersMutation();
 
   const handlePress = async () => {
-        dispatch(addItem(product));
+   
+      if (dispatch(addItem(product))) {
+        setShowSuccessMessage(true);
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 2000);
+        } 
 
-    // try {
-    //   const { isSuccess } = await triggerPostOrder(product);
-  
-    //   if (isSuccess) {
-    //     setShowSuccessMessage(true);
-    //     setTimeout(() => {
-    //       setShowSuccessMessage(false);
-    //     }, 2000);
-  
-    //     dispatch(addItem(product));
-    //   } 
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
   };
   
 
@@ -46,9 +36,9 @@ const ItemDetail = ({ route }) => {
           <Pressable style={styles.button} onPress={handlePress}>
             <Text style={styles.buyNow}>Buy Now</Text>
           </Pressable>
-          {showSuccessMessage && (
-              <Text style={styles.addesSucc}>¡Your product was added successfully!</Text>
-          )}
+          { showSuccessMessage ? <Text style={styles.addesSucc}>¡Your product was added successfully!</Text>   
+          :  <Text style={styles.addSucNothing}> </Text>
+          }
         </View> 
       </View>
     </View>
@@ -71,8 +61,9 @@ const styles = StyleSheet.create({
     card: {
       width: "80%",
       backgroundColor: 'white',
-      height: "80%",
+      height: "85%",
       borderRadius: 20,
+      marginBottom: 30
     },
     imageContainer:{
       width: "100%",
@@ -121,10 +112,12 @@ const styles = StyleSheet.create({
   fontSize: 30,
   color: colors.lilac,
   fontFamily: "PoppinBold",
-  alignSelf: 'center'
+  alignSelf: 'center',
+  marginTop: 10
  },
  button: {
-  borderWidth: 3, // Ancho del borde
+  position: 'relative',
+  borderWidth: 3,
   borderColor: colors.lilac,
   backgroundColor: colors.lilac,
   padding: 10, 
@@ -132,21 +125,30 @@ const styles = StyleSheet.create({
   height: 60,
   borderRadius: 70,
   alignSelf: 'center',
-  marginTop: 10
+  marginTop: 10,
+
  },
  buyNow: {
   fontSize: 22,
   color: 'white',
   fontFamily: "PoppinBold",
-  alignSelf: 'center'
+  alignSelf: 'center',
  },
  addesSucc: {
   textAlign: "center",
-  padding: 10,
-  marginBottom: 10,
   fontSize: 15,
   fontFamily: 'PoppinBold',
-  color: colors.green
+  color: colors.green,
+  position: 'relative',
+  top: 20
+ },
+ addSucNothing: {
+  textAlign: "center",
+  fontSize: 15,
+  fontFamily: 'PoppinBold',
+  color: 'white',
+  position: 'relative',
+  top: 20
  }
 
 })

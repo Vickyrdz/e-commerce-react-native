@@ -1,5 +1,5 @@
 import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItem from '../components/CartItem/CartItem';
 import { colors } from '../global/colors';
 import { useSelector } from 'react-redux'; 
@@ -8,6 +8,7 @@ import { usePostOrdersMutation } from '../app/Services/shopService';
 const Cart = ({ navigation }) => {
   const cart = useSelector(state => state.cart.value);
   const [triggerPostOrder] = usePostOrdersMutation();
+  const [cartValid, setCartValid] = useState(false); 
 
   const handleConfirmPress = () => {
      triggerPostOrder(cart);
@@ -15,6 +16,15 @@ const Cart = ({ navigation }) => {
 
     // acá deberías limpiar carrito, mostrar mensaje de orden exitosa y navegar
   }
+
+  useEffect(() => {
+    setCartValid(cart.total > 0);
+  }, [cart.total]);
+
+  const confirmContainerStyle = {
+    ...styles.confirmContainer,
+    backgroundColor: cartValid ? colors.green : colors.mediumGray,
+  };
 
 
   return (
@@ -29,7 +39,7 @@ const Cart = ({ navigation }) => {
           <Text style={styles.total}>Total</Text>
           <Text style={styles.price}>${cart.total}</Text>
         </View>
-        <Pressable style={styles.confirmContainer} onPress={handleConfirmPress}>
+        <Pressable style={confirmContainerStyle} onPress={handleConfirmPress}>
           <Text style={styles.confirmText}>Confirm</Text>
         </Pressable>
       </View>
