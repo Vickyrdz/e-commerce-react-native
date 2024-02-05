@@ -34,8 +34,7 @@ const Login = ({navigation}) => {
     const password = userLogin.password;
 
     const onSubmit = async () => {
-      const a = await triggerLogin({email, password});
-      console.log({ a });
+      await triggerLogin({email, password});
     }
 
 

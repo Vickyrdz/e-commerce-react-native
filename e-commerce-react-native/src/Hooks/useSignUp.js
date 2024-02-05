@@ -32,10 +32,7 @@ export default function () {
 
   const rulesPassword = userSignUp.password == '';
 
-  const someFieldEmpty =
-  !isEmail || !isPassword || !isConfirmPassword; 
-
-  console.log({ userSignUp, isEmail, isPassword, isConfirmPassword})
+  const someFieldEmpty = !isEmail || !isPassword || !isConfirmPassword;
 
   const allowEmailErrorMessage = () => {
     setFocusedEmailInput(true);

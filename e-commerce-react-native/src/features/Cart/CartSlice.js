@@ -1,8 +1,7 @@
-import { current, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     value: {
-       user: 'vickyRdz',
        items: [],
        total: 0,
        updateAt: ""
@@ -26,11 +25,14 @@ export const cartSlice = createSlice({
             state.value.items = updatedItems;
             state.value.total = updatedItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             state.value.updateAt = new Date().toLocaleString();
+        },
+        cleanCart: (state, action) => {
+            state.value.items = []
+            state.value.total = 0
         }
-       // debería haber una action que limpie el carrito 
     } 
 });
 
-export const { addItem, removeItem} = cartSlice.actions; 
+export const { addItem, removeItem, cleanCart } = cartSlice.actions; 
 
 export default cartSlice.reducer;  

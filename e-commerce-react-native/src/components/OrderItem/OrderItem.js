@@ -12,7 +12,7 @@ const OrderItem = ({ order, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.color} />
-      <Text style={styles.date}>{order.updateAt.split(", ")[0]}</Text>
+      <Text style={styles.date}>{order.updateAt?.split(", ")?.[0]}</Text>
       <View style={styles.containerPrice}>
         <Text style={styles.texts}>Total ${total}</Text>
         <Pressable

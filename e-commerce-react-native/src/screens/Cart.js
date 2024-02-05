@@ -2,20 +2,33 @@ import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-n
 import React, { useEffect, useState } from 'react';
 import CartItem from '../components/CartItem/CartItem';
 import { colors } from '../global/colors';
-import { useSelector } from 'react-redux'; 
+import { useSelector, useDispatch } from 'react-redux'; 
 import { usePostOrdersMutation } from '../app/Services/shopService';
+import { cleanCart } from '../features/Cart/CartSlice';
 
 const Cart = ({ navigation }) => {
   const cart = useSelector(state => state.cart.value);
+  const dispatch = useDispatch();
   const [triggerPostOrder] = usePostOrdersMutation();
   const [cartValid, setCartValid] = useState(false); 
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
 
   const handleConfirmPress = () => {
-     triggerPostOrder(cart);
-     navigation.navigate('OrderStack');
+
+     if (triggerPostOrder(cart)) {
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+        dispatch(cleanCart())
+      }, 2000);
+      } 
+      navigation.navigate('OrderStack');
+
 
     // acá deberías limpiar carrito, mostrar mensaje de orden exitosa y navegar
   }
+
 
   useEffect(() => {
     setCartValid(cart.total > 0);
@@ -35,6 +48,9 @@ const Cart = ({ navigation }) => {
         renderItem={({ item }) => <CartItem item={item} />}
       />
       <View style={styles.container}>
+      { showSuccessMessage ? <Text style={styles.textConfirmSuc}>¡The order has been successfully added!</Text>   
+          :  <Text style={styles.textConfirmSucNothing}> </Text> }
+      
         <View style={styles.containerTotal}>
           <Text style={styles.total}>Total</Text>
           <Text style={styles.price}>${cart.total}</Text>
@@ -57,8 +73,7 @@ const styles = StyleSheet.create({
     gap: 10,
     height: 155,
     width: "100%",
-    marginTop: 20,
-    marginBottom: 20
+    marginBottom: 55
   },
   containerTotal: {
     height: 50,
@@ -94,5 +109,17 @@ const styles = StyleSheet.create({
   confirmText: {
     color: "white",
     fontFamily: "PoppinBold",
+  },
+  textConfirmSuc: {
+    position:'relative',
+    color: colors.green,
+    textAlign: 'center',
+    fontFamily: 'PoppinBold'
+  },
+  textConfirmSucNothing: {
+    position:'relative',
+    color: colors.lightGray,
+    textAlign: 'center',
+    fontFamily: 'PoppinBold'
   }
 });

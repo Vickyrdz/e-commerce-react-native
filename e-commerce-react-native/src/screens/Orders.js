@@ -9,7 +9,10 @@ const Orders = ({navigation}) => {
 
   useEffect(()=>{
     if(!isLoading) {
-      const dataArray = Object.values(data);
+      const ordersData = Object.entries(data);
+      const dataArray = ordersData.map(([orderKey, order]) => {
+        return ({...order, id: orderKey });
+      });
       setOrders(dataArray);
     }
   }, [data])
