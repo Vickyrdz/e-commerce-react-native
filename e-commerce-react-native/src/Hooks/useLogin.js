@@ -2,8 +2,8 @@ import { useState } from "react";
 
 export default function () {
   const [userLogin, setUserLogin] = useState({
-    email: "",
-    password: "",
+    email: "Hola@gmail.com",
+    password: "Hola1234",
   });
 
 
@@ -26,8 +26,7 @@ export default function () {
 
   const rulesPassword = userLogin.password == '';
 
-  const someFieldEmpty =
-  !isEmail || !isPassword || !isConfirmPassword; 
+  const someFieldEmpty = !isEmail || !isPassword; 
 
 
   const allowEmailErrorMessage = () => {

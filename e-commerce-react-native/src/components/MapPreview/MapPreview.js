@@ -12,7 +12,6 @@ const MapPreview = ({latitude, longitude}) => {
     &markers=color:red%7Clabel:C%7C${latitude}, ${longitude}
     &key=${GoogleApi}`;
 
-    console.log({ mapPreviewUrl });
 
   return (
       <Image 

@@ -5,12 +5,15 @@ import { colors } from '../global/colors';
 import { useSelector } from 'react-redux'; 
 import { usePostOrdersMutation } from '../app/Services/shopService';
 
-const Cart = () => {
+const Cart = ({ navigation }) => {
   const cart = useSelector(state => state.cart.value);
   const [triggerPostOrder] = usePostOrdersMutation();
 
   const handleConfirmPress = () => {
-    triggerPostOrder(cart); 
+     triggerPostOrder(cart);
+     navigation.navigate('OrderStack');
+
+    // acá deberías limpiar carrito, mostrar mensaje de orden exitosa y navegar
   }
 
 

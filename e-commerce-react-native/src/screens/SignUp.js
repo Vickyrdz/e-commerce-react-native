@@ -8,6 +8,7 @@ import { setUser } from "../features/Auth/AuthSlice";
 import { signUpSchema } from "../Validations/SignUpSchema";
 import useSignUp from "../Hooks/useSignUp";
 import SuccesfulText from '../components/SuccessfulText'
+import { insertSession } from "../DB";
 
 const SignUp = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const SignUp = ({ navigation }) => {
     inputInvalidConfirmPassword,
   } = useSignUp();
 
+
   useEffect(() => {
     if (isSuccess) {
       setShowSuccessMessage(true);
@@ -43,6 +45,7 @@ const SignUp = ({ navigation }) => {
       setTimeout(() => {
           setShowSuccessMessage(false);
           dispatch(setUser(data));
+          insertSession(data)
       }, 2000);
     }
   }, [isSuccess]);
@@ -135,7 +138,7 @@ const SignUp = ({ navigation }) => {
             )}
           </View>
 
-          <SubmitButton title="Send" onPress={onSubmit} />
+          <SubmitButton title="Send" onPress={onSubmit} someFieldEmpty={someFieldEmpty} />
           <View>
             <Text style={styles.alreadyText}>Already have an account?</Text>
             <Pressable onPress={() => navigation.navigate("Login")}>

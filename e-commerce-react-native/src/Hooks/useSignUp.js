@@ -28,14 +28,14 @@ export default function () {
 
   const inputInvalidEmail = !isEmail || userSignUp.email == '';
   const inputInvalidPassword = !isPassword;
-  const inputInvalidConfirmPassword = !isConfirmPassword
-
+  const inputInvalidConfirmPassword = !isConfirmPassword;
 
   const rulesPassword = userSignUp.password == '';
 
   const someFieldEmpty =
   !isEmail || !isPassword || !isConfirmPassword; 
 
+  console.log({ userSignUp, isEmail, isPassword, isConfirmPassword})
 
   const allowEmailErrorMessage = () => {
     setFocusedEmailInput(true);

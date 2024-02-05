@@ -6,6 +6,15 @@ import TabNavigation from './src/navigation/TabNavigation';
 import { store } from './src/app/store';
 import { Provider } from 'react-redux';
 import MainNavigator from './src/navigation/MainNavigator';
+import { init } from './src/DB';
+
+
+init()
+.then(()=> console.log('DB initialized'))
+.catch( err => {
+  console.log('DB initializationfailed')
+  console.log(err.message)
+})
 
 
 export default function App() {

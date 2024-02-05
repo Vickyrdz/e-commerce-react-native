@@ -1,18 +1,8 @@
 import { Text, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 import { colors } from '../../global/colors';
-import useSignUp from '../../Hooks/useSignUp';
 
-
-
-const SubmitButton = ({title, onPress}) => {
-
-
-  const {
-    someFieldEmpty,
-  } = useSignUp();  
-
-
+const SubmitButton = ({title, onPress, someFieldEmpty }) => {
   return (
     <Pressable style={ someFieldEmpty ? styles.buttonEmpty : styles.button} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>

@@ -1,23 +1,21 @@
 import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import InputForm from '../components/InputForm/InputForm'
 import SubmitButton from '../components/SubmitButton/SubmitButton';
 import { colors } from '../global/colors';
 import { useLoginMutation } from '../app/Services/auth';
 import { useDispatch } from 'react-redux'; 
 import { setUser } from '../features/Auth/AuthSlice';
-import { signUpSchema } from '../Validations/SignUpSchema';
 import useLogin from '../Hooks/useLogin';
+import { insertSession } from '../DB';
 
 
 const Login = ({navigation}) => {
 
-    const dispatach = useDispatch();
+    const dispatch = useDispatch();
     const [triggerLogin, { data, isSuccess }] = useLoginMutation();
 
     const {
       userLogin,
-      rulesPassword,
       setUserLogin,
       inputInvalidEmail,
       allowEmailErrorMessage,
@@ -28,14 +26,16 @@ const Login = ({navigation}) => {
     } = useLogin();
 
     useEffect(()=>{
-      if(isSuccess) dispatach(setUser(data))
-  }, [isSuccess]);
+      if (isSuccess) dispatch(setUser(data));
+      if (data) insertSession(data);
+  }, [isSuccess, data]);
 
     const email = userLogin.email; 
     const password = userLogin.password;
 
-    const onSubmit = () => {
-      triggerLogin({email, password});
+    const onSubmit = async () => {
+      const a = await triggerLogin({email, password});
+      console.log({ a });
     }
 
 
@@ -83,7 +83,7 @@ const Login = ({navigation}) => {
         </View>
         
         <View style={styles.button}>
-            <SubmitButton title="Send" onPress={onSubmit}/>
+            <SubmitButton title="Send" onPress={onSubmit} someFieldEmpty={!userLogin.email || !userLogin.password}/>
         </View>
         <View>
           <Text style={styles.notHaveText}>Not have an account?</Text>

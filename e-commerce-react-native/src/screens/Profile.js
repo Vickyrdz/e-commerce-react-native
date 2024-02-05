@@ -1,14 +1,23 @@
-import { View, Text, Button, Image, StyleSheet, Pressable } from 'react-native'
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
-import AddButton from '../components/AddButton/AddButton';
 import { useGetProfileImageQuery, useGetProfileLocationQuery } from '../app/Services/shopService';
-import { useSelector } from 'react-redux'; 
+import { useSelector, useDispatch } from 'react-redux'; 
 import { colors } from '../global/colors'
+import { deleteSession, fetchSession } from '../DB';
+import { deleteUser } from '../features/Auth/AuthSlice';
+
 
 const Profile = ({ navigation }) => {
   const localId = useSelector(state => state.auth.value.localId); 
   const {data} = useGetProfileImageQuery(localId); 
   const {data:location} = useGetProfileLocationQuery(localId); 
+
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    deleteSession(localId);
+    dispatch(deleteUser()); 
+  }
 
   return (
     <View style={styles.container}>
@@ -31,7 +40,11 @@ const Profile = ({ navigation }) => {
            <Text style={styles.buttonText}>{{location} ? "See location" : "Add location"}</Text>
         </Pressable>   
       </View>
-    
+      <View>
+        <Pressable onPress={onLogout} style={styles.logOut}>
+          <Text style={styles.close}>Close Session</Text>
+        </Pressable>
+      </View>
     </View>
   )
 }
@@ -42,7 +55,7 @@ export default Profile;
 const styles = StyleSheet.create({
     container:{
       width: "80%",
-      height: "50%",
+      height: "60%",
       alignSelf: "center",
       alignItems: "center",
       marginTop: 130,
@@ -122,6 +135,21 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: 'white',
       textAlign: 'center',
+    },
+    logOut: {
+      height: 40,
+      width: 100,
+      marginTop: 40,
+      borderWidth: 1,
+      borderColor: colors.error,
+      borderRadius: 10,
+      justifyContent: 'center',
+    },
+    close: {
+      textAlign: 'center',
+      fontFamily: 'PoppinSemiRegular',
+      color: colors.error,
+      fontSize: 12
     }
 })
 

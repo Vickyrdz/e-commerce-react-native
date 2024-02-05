@@ -1,8 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { colors } from '../../global/colors'
+import { colors } from '../../global/colors';
+
 
 const Header = ({title}) => {
+
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
@@ -25,5 +29,9 @@ const styles = StyleSheet.create({
         color: colors.strongGray,
         fontFamily: 'PoppinSemiRegular',
         marginTop: 30
+    },
+    logOut: {
+      width: 20,
+      height: 20
     }
 })

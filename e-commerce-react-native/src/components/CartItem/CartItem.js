@@ -28,8 +28,10 @@ const CartItem = ({item}) => {
       </View>
       <View style={styles.texts}>
         <Text style={styles.textTitle}>{mayus(item.title)}</Text>
-        <Text style={styles.textQuantity}>Cantidad: {item.quantity}</Text>
-        <Text style={styles.text}>${item.price}</Text>
+        <View style={styles.priceContainer}>
+          <Text style={styles.textQuantity}>Cantidad: {item.quantity}</Text>
+          <Text style={styles.text}>${item.price}</Text>
+        </View>
       </View>
       <Pressable onPress={()=> dispatch(removeItem(item.id))}>
         <Ionicons name="close" size={24} color={colors.mediumGray} />
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderWidth: 1,
     borderColor: colors.lightGray,
-    borderRadius: 15
+    borderRadius: 15,
   },
   image: {
     width: 90,
@@ -63,23 +65,28 @@ const styles = StyleSheet.create({
     borderRadius: 10
  },
  texts: {
-  flexDirection: 'row',
   gap: 8,
-  width: "70%",
+  width: "60%",
   justifyContent: "center",
  },
  text: {
   fontFamily: 'PoppinSemiRegular',
   color: colors.strongGray,
   fontSize: 14,
-  width: "15%",
+  width: "40%",
   alignSelf: 'center'
+},
+  priceContainer:{
+    flexDirection: 'row',
+    gap: 10,
+    textAlign: 'center',
+    width: '50%',
+    alignSelf: 'center'
 },
  textQuantity: {
   fontFamily: 'PoppinSemiRegular',
   color: colors.strongGray,
   fontSize: 14,
-  width: "35%",
   alignSelf: 'center'
 },
 textTitle:{
@@ -87,6 +94,8 @@ textTitle:{
   color: colors.strongGray,
   fontSize: 14,
   paddingLeft: 10,
-  width: "80%"
+  textAlign: 'center',
+  width: '80%',
+  alignSelf: 'center'
 }
 })

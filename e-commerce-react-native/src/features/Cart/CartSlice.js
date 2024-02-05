@@ -19,7 +19,6 @@ export const cartSlice = createSlice({
             else state.value.items.push({...action.payload, quantity: 1});
             state.value.total = state.value.items.reduce((acc, item)=> acc + (item.price * item.quantity), 0);
             state.value.updateAt = new Date().toLocaleString(); 
-            console.log({ post: current(state), foundItem });
         },
         removeItem: (state, action) => {
             const itemIdToRemove = action.payload; 
@@ -28,8 +27,7 @@ export const cartSlice = createSlice({
             state.value.total = updatedItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             state.value.updateAt = new Date().toLocaleString();
         }
-       
- 
+       // debería haber una action que limpie el carrito 
     } 
 });
 
