@@ -11,7 +11,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 
-const CategoryItem = ({item, navigation, route }) => {
+const CategoryItem = ({item, navigation }) => {
 
   const dispatch = useDispatch(); 
 

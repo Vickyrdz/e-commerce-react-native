@@ -12,7 +12,7 @@ const ProductItem = ({item, navigation, route}) => {
   };
 
   const dispatch = useDispatch(); 
-  const {width, height} = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   return (
     <Pressable
