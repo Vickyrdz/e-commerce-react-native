@@ -2,8 +2,8 @@ import { useState } from "react";
 
 export default function () {
   const [userLogin, setUserLogin] = useState({
-    email: "Hola@gmail.com",
-    password: "Hola1234",
+    email: "",
+    password: "",
   });
 
 

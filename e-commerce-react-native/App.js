@@ -2,7 +2,6 @@ import { StyleSheet, StatusBar} from 'react-native';
 import { colors } from './src/global/colors';
 import {useFonts} from 'expo-font';
 import { fonts } from './src/global/fonts';
-import TabNavigation from './src/navigation/TabNavigation';
 import { store } from './src/app/store';
 import { Provider } from 'react-redux';
 import MainNavigator from './src/navigation/MainNavigator';

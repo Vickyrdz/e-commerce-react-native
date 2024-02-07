@@ -23,7 +23,7 @@ export const insertSession = (data) => {
         db.transaction(tx => {
             tx.executeSql(
             'INSERT INTO sessions (localId, email, tokenId) VALUES (?, ?, ?); ',
-            [email, localId, idToken],
+            [localId, email, idToken],
             (_, result)=> resolve(result),
             (_,error)=> {reject(error)})
         })

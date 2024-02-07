@@ -202,8 +202,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
     borderRadius: 5,
     marginTop: 5,
-    height: 22,
+    height: 30,
     marginBottom: 20,
+    paddingLeft: 10
   },
   text: {
     fontFamily: "PoppinSemiRegular",

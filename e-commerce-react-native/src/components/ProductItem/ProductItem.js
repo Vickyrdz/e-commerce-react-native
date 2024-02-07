@@ -4,7 +4,6 @@ import { colors } from '../../global/colors';
 import { useDispatch } from 'react-redux';
 import { setProductSelected } from '../../features/shop/ShopSlice'; 
 
-
 const ProductItem = ({item, navigation, route}) => {
 
   const mayus = (text) => {
@@ -18,7 +17,7 @@ const ProductItem = ({item, navigation, route}) => {
     <Pressable
       style={styles.container}
       onPress={() => {
-        dispatch(setProductSelected(item.id))
+        dispatch(setProductSelected(item.id));
         navigation.navigate("Detail", { id: item.id });
       }}
     >

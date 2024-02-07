@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import CategoryItem from '../CategoryItem/CategoryItem';
 import { useGetCategoriesQuery } from '../../app/Services/shopService';
 
-
 const Categories = ({navigation, route}) => {
 
   const {data: categories} = useGetCategoriesQuery(); 
