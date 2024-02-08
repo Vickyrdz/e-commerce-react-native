@@ -22,9 +22,10 @@ const Cart = ({ navigation }) => {
       setTimeout(() => {
         setShowSuccessMessage(false);
         dispatch(cleanCart())
-      }, 2000);
+        navigation.navigate('OrderStack');
+      }, 1000);
       } 
-      navigation.navigate('OrderStack');
+
   }
 
 
@@ -53,9 +54,13 @@ const Cart = ({ navigation }) => {
           <Text style={styles.total}>Total</Text>
           <Text style={styles.price}>${cart.total}</Text>
         </View>
-        <Pressable style={confirmContainerStyle} onPress={handleConfirmPress}>
-          <Text style={styles.confirmText}>Confirm</Text>
-        </Pressable>
+        <Pressable 
+            style={confirmContainerStyle} 
+            onPress={handleConfirmPress}
+            disabled={!cartValid} 
+          >
+            <Text style={styles.confirmText}>Confirm</Text>
+          </Pressable>
       </View>
     </View>
   );}

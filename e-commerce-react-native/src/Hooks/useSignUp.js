@@ -7,13 +7,6 @@ export default function () {
     confirmPassword: '', 
   });
 
-//   const handleChange = (e) => {
-//     setUserSignUp({
-//       ...userSignUp,
-//       [e.target.name]: e.target.value,
-//     });
-//   };
-
   const [focusedEmailInput, setFocusedEmailInput] = useState(false);
   const [focusedPasswordInput, setFocusedPasswordInput] = useState(false);
   const [focusedConfirmPasswordInput, setFocusedConfirmPasswordInput] = useState(false);

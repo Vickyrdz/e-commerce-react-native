@@ -22,7 +22,6 @@ const Profile = ({ navigation }) => {
   };
 
   useEffect(() => {
-    console.log({ locationData, profileData });
   }, [locationData, profileData]);
   
 

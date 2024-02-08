@@ -7,15 +7,16 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../features/Auth/AuthSlice";
 import { signUpSchema } from "../Validations/SignUpSchema";
 import useSignUp from "../Hooks/useSignUp";
-import SuccesfulText from '../components/SuccessfulText'
+import SuccesfulText from "../components/SuccessfulText";
 import { insertSession } from "../DB";
 
 const SignUp = ({ navigation }) => {
   const dispatch = useDispatch();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-
-  const [triggerSignUp, { data, isError, isSuccess, error, isLoading }] = useSignUpMutation();
+  const [triggerSignUp, { data, isError, isSuccess, error, isLoading }] =
+    useSignUpMutation();
 
   const {
     userSignUp,
@@ -33,18 +34,31 @@ const SignUp = ({ navigation }) => {
     inputInvalidConfirmPassword,
   } = useSignUp();
 
-
   useEffect(() => {
     if (isSuccess) {
       setShowSuccessMessage(true);
-      
+
       setTimeout(() => {
-          setShowSuccessMessage(false);
-          dispatch(setUser(data));
-          insertSession(data)
+        setShowSuccessMessage(false);
+        dispatch(setUser(data));
+        insertSession(data);
       }, 2000);
     }
-  }, [isSuccess]);
+
+    if (isError) {
+      if (
+        error.data && error.data.error && error.data.error.message === "EMAIL_EXISTS"
+      ) {
+        setErrorMessage("Ya existe una cuenta con este correo electrónico.");
+      } else {
+        setErrorMessage("Hubo un error en el registro. Inténtelo de nuevo.");
+      }
+    }
+  }, [isSuccess, isError, error]);
+
+  useEffect(()=>{
+    if(!userSignUp.email && !!errorMessage) setErrorMessage('')
+  },[userSignUp.email, errorMessage])
 
   const email = userSignUp.email;
   const password = userSignUp.password;
@@ -53,30 +67,26 @@ const SignUp = ({ navigation }) => {
     triggerSignUp({ email, password });
   };
 
-    const passwordInputValidations = useMemo(() => {
-        if (rulesPassword && !focusedPasswordInput) {
-            return (
-                <Text style={styles.rules}>
-                The password must be between 8 and 16 characters, at least one
-                digit, at least one lowercase letter, and at least one uppercase
-                letter. It may have other symbols.
-                </Text>
-            )
-        } else if (focusedPasswordInput && inputInvalidPassword) {
-            return (<Text style={styles.error}>Password invalid</Text>);
-        }
-        return <Text>{" "}</Text>
-    }, [rulesPassword, inputInvalidPassword, focusedPasswordInput]);
-
-
-
+  const passwordInputValidations = useMemo(() => {
+    if (rulesPassword && !focusedPasswordInput) {
+      return (
+        <Text style={styles.rules}>
+          The password must be between 8 and 16 characters, at least one digit,
+          at least one lowercase letter, and at least one uppercase letter. It
+          may have other symbols.
+        </Text>
+      );
+    } else if (focusedPasswordInput && inputInvalidPassword) {
+      return <Text style={styles.error}>Password invalid</Text>;
+    }
+    return <Text> </Text>;
+  }, [rulesPassword, inputInvalidPassword, focusedPasswordInput]);
 
   return (
     <View style={styles.allContainer}>
       {showSuccessMessage ? (
-        <SuccesfulText/>
-
-) : (
+        <SuccesfulText />
+      ) : (
         <View style={styles.container}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Create an</Text>
@@ -97,7 +107,7 @@ const SignUp = ({ navigation }) => {
             {inputInvalidEmail && focusedEmailInput ? (
               <Text style={styles.error}>Email invalid</Text>
             ) : (
-              <Text style={styles.ghostText}>{" "}</Text>
+              <Text style={styles.ghostText}> </Text>
             )}
           </View>
           <View>
@@ -112,8 +122,8 @@ const SignUp = ({ navigation }) => {
               style={styles.input}
               onFocus={allowPasswordErrorMessage}
             />
-            <Text style={styles.ghostText}>{" "}</Text>
-            { passwordInputValidations }
+            <Text style={styles.ghostText}> </Text>
+            {passwordInputValidations}
           </View>
           <View>
             <Text style={styles.text}>Confirm Password</Text>
@@ -130,16 +140,23 @@ const SignUp = ({ navigation }) => {
             {inputInvalidConfirmPassword && focusedConfirmPasswordInput ? (
               <Text style={styles.error}>Passwords not match</Text>
             ) : (
-              <Text style={styles.ghostText}>{" "}</Text>
+              <Text style={styles.ghostText}> </Text>
             )}
           </View>
 
-          <SubmitButton title="Send" onPress={onSubmit} someFieldEmpty={someFieldEmpty} />
+          <SubmitButton
+            title="Send"
+            onPress={onSubmit}
+            someFieldEmpty={someFieldEmpty}
+          />
           <View>
             <Text style={styles.alreadyText}>Already have an account?</Text>
             <Pressable onPress={() => navigation.navigate("Login")}>
               <Text style={styles.loginText}>Login</Text>
             </Pressable>
+          </View>
+          <View>
+            <Text style={styles.emailExist}>{errorMessage}</Text>
           </View>
         </View>
       )}
@@ -195,6 +212,7 @@ const styles = StyleSheet.create({
     color: colors.lilac,
     fontSize: 14,
     textAlign: "center",
+    marginBottom: 10,
   },
   input: {
     width: "70%",
@@ -204,7 +222,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     height: 30,
     marginBottom: 20,
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   text: {
     fontFamily: "PoppinSemiRegular",
@@ -231,9 +249,14 @@ const styles = StyleSheet.create({
     width: "70%",
     alignSelf: "center",
     fontFamily: "PoppinSemiRegular",
-    fontStyle: "italic"
+    fontStyle: "italic",
   },
   ghostText: {
-    height: 0
-  }
+    height: 0,
+  },
+  emailExist: {
+    color: colors.error,
+    textAlign: "center",
+    fontFamily: "PoppinBold",
+  },
 });
