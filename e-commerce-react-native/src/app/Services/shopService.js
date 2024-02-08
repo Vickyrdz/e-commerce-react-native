@@ -27,11 +27,10 @@ export const shopApi = createApi({
       }),
     }),
     getOrders: builder.query({
-      query: () => `orders.json`,
+      query: (userId) => `orders.json?&orderBy="userId"&equalTo="${userId}"`,
     }),
     postProfileImage: builder.mutation({
       query: ({ localId, image }) => {
-        // console.log({ localId, image });
         const imgUrl = `profileImage/${localId}.json`;
         return {
           url: imgUrl,
@@ -43,7 +42,6 @@ export const shopApi = createApi({
     }),
     getProfileImage: builder.query({
       query: (localId) => {
-        console.log({ localId });
         return `profileImage/${localId}.json`;
       },
       providesTags: ["image"],

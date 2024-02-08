@@ -4,15 +4,17 @@ import OrderItem from "../components/OrderItem/OrderItem";
 import { useGetOrdersQuery } from "../app/Services/shopService";
 import { colors } from "../global/colors";
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const Orders = ({ navigation }) => {
+  const localId = useSelector((state) => state.auth.value.localId);
   const [orders, setOrders] = useState([]);
-  const { data, isLoading, refetch} = useGetOrdersQuery();
+  const { data, isLoading, refetch} = useGetOrdersQuery(localId);
 
   useFocusEffect(
     React.useCallback(() => {
-      refetch();
-    }, [])
+      refetch(localId);
+    }, [localId])
   );
   useEffect(() => {
     if (!isLoading && data) {

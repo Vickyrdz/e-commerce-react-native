@@ -7,6 +7,7 @@ import { usePostOrdersMutation } from '../app/Services/shopService';
 import { cleanCart } from '../features/Cart/CartSlice';
 
 const Cart = ({ navigation }) => {
+  const localId = useSelector((state) => state.auth.value.localId);
   const cart = useSelector(state => state.cart.value);
   const dispatch = useDispatch();
   const [triggerPostOrder] = usePostOrdersMutation();
@@ -15,8 +16,8 @@ const Cart = ({ navigation }) => {
 
 
   const handleConfirmPress = () => {
-
-     if (triggerPostOrder(cart)) {
+    const postOrderResult = triggerPostOrder({ ...cart, userId: localId });
+     if (postOrderResult) {
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
@@ -24,9 +25,6 @@ const Cart = ({ navigation }) => {
       }, 2000);
       } 
       navigation.navigate('OrderStack');
-
-
-    // acá deberías limpiar carrito, mostrar mensaje de orden exitosa y navegar
   }
 
 
