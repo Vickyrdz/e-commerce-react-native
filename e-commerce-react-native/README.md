@@ -127,7 +127,7 @@ Visualmente:
 * Boton de cerrar sesión. 
 
 
-*(Imagenes con domicilio censurado para preservar.)*  
+*(Estas imágenes contienen información sensible, debido a eso, se oculta ese fragmento)*  
 <img src='../README/Assets/Profile.jpeg' widht=80 height=500 > ...
 <img src='../README/Assets/ProfileImage.jpeg' widht=80 height=500> ... 
 <img src='../README/Assets/ProfileLocation.jpeg' widht=80 height=500> 
